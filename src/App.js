@@ -20,6 +20,7 @@ class App extends React.Component {
       operation: null,
       computed: true,
     });
+    return ans
   };
   subtraction = () => {
     const { previousOp, currentOperand } = this.state;
@@ -31,6 +32,7 @@ class App extends React.Component {
       operation: null,
       computed: true,
     });
+    return ans
   };
   multiplication = () => {
     const { previousOp, currentOperand } = this.state;
@@ -42,6 +44,7 @@ class App extends React.Component {
       operation: null,
       computed: true,
     });
+    return ans
   };
   division = () => {
     const { previousOp, currentOperand } = this.state;
@@ -53,6 +56,7 @@ class App extends React.Component {
       operation: null,
       computed: true,
     });
+    return ans
   };
   addDigit = (digit) => {
     let { currentOperand, previousOp, operation, computed } = this.state;
@@ -79,17 +83,13 @@ class App extends React.Component {
     if (currentOperand !== null && previousOp !== null) {
       switch (operation) {
         case "+":
-          this.addition();
-          break;
+          return this.addition();
         case "-":
-          this.subtraction();
-          break;
+          return  this.subtraction();
         case "*":
-          this.multiplication();
-          break;
+          return this.multiplication();
         case "÷":
-          this.division();
-          break;
+          return  this.division();
         default:
           break;
       }
@@ -97,10 +97,16 @@ class App extends React.Component {
   };
 
   chooseOperation = (op) => {
-    let { previousOp, currentOperand, operation } = this.state;
+    var { previousOp, currentOperand, operation } = this.state;
     if (operation !== null) {
       if (previousOp !== null && currentOperand !== null) {
-        this.computation();
+        let ans=this.computation();
+        this.setState({
+          ...this.state,
+          operation: op,
+          previousOp:ans,
+          currentOperand:null
+        });
       }
       if (previousOp !== null && currentOperand === null) {
         this.setState({
