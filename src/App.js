@@ -18,6 +18,7 @@ class App extends React.Component {
     const { previousOp, currentOperand } = this.state;
     // converting the previous and current operands to float values
     const ans = parseFloat(previousOp) + parseFloat(currentOperand);
+    // changing the state and re-rendering the App
     this.setState({
       ...this.state,
       previousOp: null,
@@ -27,6 +28,7 @@ class App extends React.Component {
     });
     return ans;
   };
+  // to subtract two values
   subtraction = () => {
     const { previousOp, currentOperand } = this.state;
     const ans = parseFloat(previousOp) - parseFloat(currentOperand);
@@ -39,8 +41,10 @@ class App extends React.Component {
     });
     return ans;
   };
+  // to multiply two values
   multiplication = () => {
     const { previousOp, currentOperand } = this.state;
+    // multiplying the two values
     const ans = parseFloat(previousOp) * parseFloat(currentOperand);
     this.setState({
       ...this.state,
@@ -51,8 +55,10 @@ class App extends React.Component {
     });
     return ans;
   };
+  // to divide the two values
   division = () => {
     const { previousOp, currentOperand } = this.state;
+    // division of two operands
     const ans = parseFloat(previousOp) / parseFloat(currentOperand);
     this.setState({
       ...this.state,
@@ -63,19 +69,19 @@ class App extends React.Component {
     });
     return ans;
   };
+  // to add the digit to the current operand
   addDigit = (digit) => {
-    let { currentOperand, previousOp, operation, computed } = this.state;
+    let { currentOperand, computed } = this.state;
+    // checking if the current operand is already computed value
+    // if it is then changing it to null
     if (computed === true) {
       currentOperand = null;
       computed = false;
     }
-    if (previousOp !== null && operation !== null) {
+    // if current operand is null then assigning the digit to it 
       if (currentOperand === null) currentOperand = digit;
+    // if current operand is not null then appending the value to current operand 
       else currentOperand = `${currentOperand}${digit}`;
-    } else {
-      if (currentOperand === null) currentOperand = digit;
-      else currentOperand = `${currentOperand}${digit}`;
-    }
     this.setState({
       ...this.state,
       currentOperand: currentOperand,
@@ -83,6 +89,7 @@ class App extends React.Component {
     });
   };
 
+  // one's the equals button is clicked performing the computation
   computation = () => {
     const { currentOperand, previousOp, operation } = this.state;
     if (currentOperand !== null && previousOp !== null) {
@@ -101,10 +108,13 @@ class App extends React.Component {
     }
   };
 
+  // choosing the operation like addition or multiplication etc..
   chooseOperation = (op) => {
     var { previousOp, currentOperand, operation } = this.state;
+    // if there is already operation and prev curr operands are there performing the computation
     if (operation !== null) {
       if (previousOp !== null && currentOperand !== null) {
+        // getiing the computed ans from computation
         let ans = this.computation();
         this.setState({
           ...this.state,
@@ -113,6 +123,7 @@ class App extends React.Component {
           currentOperand: null,
         });
       }
+      // if only prev operand and other operation exists changing the operation
       if (previousOp !== null && currentOperand === null) {
         this.setState({
           ...this.state,
@@ -120,6 +131,7 @@ class App extends React.Component {
         });
       }
     }
+    // if the current operand is null returning without and changes
     if (currentOperand === null) return;
     if (operation === null) {
       this.setState({
@@ -130,6 +142,7 @@ class App extends React.Component {
       });
     }
   };
+  // adding the period symbol for decimal values
   addPeriod = () => {
     const { currentOperand } = this.state;
     if (currentOperand === null) return;
@@ -137,6 +150,7 @@ class App extends React.Component {
     if (curr.includes(".")) return;
     return this.addDigit(".");
   };
+  // clear everything 
   allClear = () => {
     this.setState({
       ...this.state,
@@ -145,6 +159,7 @@ class App extends React.Component {
       previousOp: null,
     });
   };
+  // changing the current operand to either positive or neh=gative numbers.
   plusOrMinus=()=>{
    let {currentOperand,operation,previousOp}=this.state;
    if(operation!==null || previousOp!==null)
