@@ -1,8 +1,11 @@
 import React from "react";
+import "./index.css"
 
 class App extends React.Component {
+  // constructor of aour APP class
   constructor() {
     super();
+    // initializing the state
     this.state = {
       previousOp: null,
       operation: null,
@@ -10,8 +13,10 @@ class App extends React.Component {
       computed: false,
     };
   }
+  // to add two numbers
   addition = () => {
     const { previousOp, currentOperand } = this.state;
+    // converting the previous and current operands to float values
     const ans = parseFloat(previousOp) + parseFloat(currentOperand);
     this.setState({
       ...this.state,
@@ -20,7 +25,7 @@ class App extends React.Component {
       operation: null,
       computed: true,
     });
-    return ans
+    return ans;
   };
   subtraction = () => {
     const { previousOp, currentOperand } = this.state;
@@ -32,7 +37,7 @@ class App extends React.Component {
       operation: null,
       computed: true,
     });
-    return ans
+    return ans;
   };
   multiplication = () => {
     const { previousOp, currentOperand } = this.state;
@@ -44,7 +49,7 @@ class App extends React.Component {
       operation: null,
       computed: true,
     });
-    return ans
+    return ans;
   };
   division = () => {
     const { previousOp, currentOperand } = this.state;
@@ -56,7 +61,7 @@ class App extends React.Component {
       operation: null,
       computed: true,
     });
-    return ans
+    return ans;
   };
   addDigit = (digit) => {
     let { currentOperand, previousOp, operation, computed } = this.state;
@@ -85,11 +90,11 @@ class App extends React.Component {
         case "+":
           return this.addition();
         case "-":
-          return  this.subtraction();
+          return this.subtraction();
         case "*":
           return this.multiplication();
         case "÷":
-          return  this.division();
+          return this.division();
         default:
           break;
       }
@@ -100,12 +105,12 @@ class App extends React.Component {
     var { previousOp, currentOperand, operation } = this.state;
     if (operation !== null) {
       if (previousOp !== null && currentOperand !== null) {
-        let ans=this.computation();
+        let ans = this.computation();
         this.setState({
           ...this.state,
           operation: op,
-          previousOp:ans,
-          currentOperand:null
+          previousOp: ans,
+          currentOperand: null,
         });
       }
       if (previousOp !== null && currentOperand === null) {
@@ -140,32 +145,45 @@ class App extends React.Component {
       previousOp: null,
     });
   };
+  plusOrMinus=()=>{
+   let {currentOperand,operation,previousOp}=this.state;
+   if(operation!==null || previousOp!==null)
+    return
+   if(currentOperand!==null)
+  {
+    currentOperand=(-1)*parseFloat(currentOperand);
+  }
+  this.setState({
+    ...this.state,
+    currentOperand
+  })
+  }
   render() {
     const { currentOperand, previousOp, operation } = this.state;
     return (
-      <div className="App">
+      <div className="calculator-grid">
         <div className="output">
-          {previousOp}
-          {operation}
-          {currentOperand}
+          <div className="previous-operand">{previousOp}{operation}</div>
+          <div className="current-operand">{currentOperand}</div>
         </div>
-        <button onClick={() => this.allClear()}>AC</button>
-        <button onClick={() => this.chooseOperation("+")}>+</button>
-        <button onClick={() => this.chooseOperation("-")}>-</button>
-        <button onClick={() => this.chooseOperation("*")}>*</button>
+        <button className="span-two" onClick={() => this.allClear()}>AC</button>
+        <button onClick={() => this.plusOrMinus()}>+/-</button>
         <button onClick={() => this.chooseOperation("÷")}>÷</button>
-        <button onClick={() => this.computation()}>=</button>
         <button onClick={() => this.addDigit(1)}>1</button>
         <button onClick={() => this.addDigit(2)}>2</button>
         <button onClick={() => this.addDigit(3)}>3</button>
+        <button onClick={() => this.chooseOperation("+")}>+</button>
         <button onClick={() => this.addDigit(4)}>4</button>
         <button onClick={() => this.addDigit(5)}>5</button>
         <button onClick={() => this.addDigit(6)}>6</button>
+        <button onClick={() => this.chooseOperation("-")}>-</button>
         <button onClick={() => this.addDigit(7)}>7</button>
         <button onClick={() => this.addDigit(8)}>8</button>
         <button onClick={() => this.addDigit(9)}>9</button>
+        <button onClick={() => this.chooseOperation("*")}>*</button>
         <button onClick={() => this.addDigit(0)}>0</button>
         <button onClick={() => this.addPeriod()}>.</button>
+        <button className="span-two" onClick={() => this.computation()}>=</button>
       </div>
     );
   }
